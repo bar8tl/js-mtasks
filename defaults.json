@@ -1,0 +1,25 @@
+{
+  "dflt": {
+    "REFDATA_DIR" : "c:\\c_portab\\01_rb\\ProgramData\\js-mtasks\\",
+    "DB_NAME"     : "mtasks.db",
+    "DB_DIR"      : "c:\\c_portab\\01_rb\\ProgramData\\js-mtasks\\",
+    "INPUTS_DIR"  : "c:\\c_portab\\01_rb\\ProgramData\\js-mtasks\\input\\",
+    "OUTPUTS_DIR" : "c:\\c_portab\\01_rb\\ProgramData\\js-mtasks\\output\\"
+  },
+  "konst": {
+    "MTASK_MAPPING_SHEET" : 2,
+    "MTASK_TOP_LINE"      : 2,
+    "CREATE_DB"           : "cdb",
+    "LOAD_REFERENCES"     : "lrf",
+    "REPORT_TASKS"        : "rpt",
+    "MY_TASKS"            : "tsk",
+    "EDI_CUSTOMER_REQS"   : "crq",
+    "DAV57_BOARD"         : "dav"
+  },
+  "sqlst": [
+    {"activ": true, "table": "mtasks", "sqlst": "CREATE TABLE IF NOT EXISTS mtasks (usrid TEXT, tskid TEXT, crtdt TEXT, categ TEXT, rqstr TEXT, divsn TEXT, descr TEXT, eefrt TEXT, tgtdt TEXT, stats TEXT, resol TEXT, tsktp TEXT, depen TEXT, aefrt TEXT, enddt TEXT, PRIMARY KEY(usrid, tskid));"},
+    {"activ": true, "table": "edicrq", "sqlst": "CREATE TABLE IF NOT EXISTS edicrq (usrid TEXT, tskid TEXT, isstp TEXT, issky TEXT, issid TEXT, parnt TEXT, sumry TEXT, assig TEXT, rpter TEXT, prity TEXT, stats TEXT, resol TEXT, crtdt TEXT, upddt TEXT, duedt TEXT, PRIMARY KEY(usrid, tskid));"},
+    {"activ": true, "table": "dav57b", "sqlst": "CREATE TABLE IF NOT EXISTS dav57b (usrid TEXT, tskid TEXT, isstp TEXT, issky TEXT, issid TEXT, parnt TEXT, sumry TEXT, assig TEXT, rpter TEXT, prity TEXT, stats TEXT, resol TEXT, crtdt TEXT, upddt TEXT, duedt TEXT, eefrt TEXT, bspnt TEXT, tlght TEXT, prjky TEXT, cstat TEXT, lstup TEXT, seclv TEXT, comp1 TEXT, comp2 TEXT, descr TEXT, labl1 TEXT, labl2 TEXT, labl3 TEXT, epicl TEXT, rslvd TEXT, PRIMARY KEY(usrid, tskid));"}
+  ],
+  "errs": {}
+}

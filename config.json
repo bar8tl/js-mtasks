@@ -1,0 +1,21 @@
+{
+  "progm": {
+    "lrfdr": "c:\\c_portab\\01_rb\\ProgramData\\js-mtasks\\",
+    "dbonm": "mtasks.db",
+    "dbodr": "c:\\c_portab\\01_rb\\ProgramData\\js-mtasks\\",
+    "inpdr": "c:\\c_portab\\01_rb\\ProgramData\\js-mtasks\\input\\",
+    "outdr": "c:\\c_portab\\01_rb\\ProgramData\\js-mtasks\\output\\"
+  },
+  "run": [],
+  "cdb": [
+    {"id": "tsk", "table": "mtasks", "cr": true},
+    {"id": "crq", "table": "edicrq", "cr": true},
+    {"id": "dav", "table": "dav57b", "cr": true}
+  ],
+  "lrf": [
+    {"id": "tsk", "table": "mtasks", "user": "bar8tl", "file": "Ricardo_Meeting_OPL.xlsx", "ld": true},
+    {"id": "tsk", "table": "mtasks", "user": "jaj8mx", "file": "JJJ_Meeting_OPL.xlsx",     "ld": true},
+    {"id": "crq", "table": "edicrq", "user": "bar8tl", "file": "edicrq.txt",               "ld": true},
+    {"id": "dav", "table": "dav57b", "user": "bar8tl", "file": "dav57b.txt",               "ld": true}
+  ]
+}

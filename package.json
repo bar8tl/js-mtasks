@@ -1,0 +1,11 @@
+{
+  "name": "js-mytasks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mytasks.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bar8tl",
+  "license": "ISC"
+}
