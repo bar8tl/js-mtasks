@@ -1,6 +1,6 @@
-`use strict`;
-const fs   = require('fs');
-const tp   = require('./dtypes');
+'use strict';
+const fs = require('fs');
+const tp = require('./dtypes');
 
 // Parameters from run command line
 class Params {
@@ -8,8 +8,8 @@ class Params {
     this.Parms = []; // Array of Param_tp
     var args = process.argv.slice(2);
     if (args.length == 0) {
-      console.log('Run option missing\r\n')
-      return
+      console.log('Run option missing\r\n');
+      return;
     }
     for (var i = 0; i < args.length; i++) {
       var curarg = args[i];
@@ -26,9 +26,9 @@ class Params {
               prm1 = prm1.substr(0, prm1.indexOf(':')).trim();
             }
           }
-          this.Parms.push(new tp.Param_tp(optn, prm1, prm2))
+          this.Parms.push(new tp.Param_tp(optn, prm1, prm2));
         } else {
-          console.log('Run option missing\r\n')
+          console.log('Run option missing\r\n');
         }
       }
     }
@@ -81,10 +81,11 @@ module.exports.Settings = class Settings {
     this.Run   = []; // Array of Run_tp
     this.Cdb   = []; // Array of Cdb_tp
     this.Lrf   = []; // Array of Lrf_tp
+    this.Rpt   = []; // Array of Rpt_tp
     this.customizeConfig();
 
     // Dfault
-    this.Sqlst = []; // Array of Sqlst_tp
+    this.Sqlcr = []; // Array of Sqlcr_tp
     this.customizeDfault();
 
     // Envmnt
@@ -141,17 +142,25 @@ module.exports.Settings = class Settings {
         lrf.ld
       ));
     }
+    for (var rpt of this.Config.c.rpt) {
+      this.Rpt.push(new tp.Rpt_tp(
+        rpt.id.trim().toLowerCase(),
+        rpt.reprt.trim(),
+        rpt.pr
+      ));
+    }
   }
 
   customizeDfault() {
     this.Dflt  = this.Dfault.d.dflt;
     this.Konst = this.Dfault.d.konst;
-    for (var sql of this.Dfault.d.sqlst) {
-      if (sql.activ) {
-        this.Sqlst.push(new tp.Sqlst_tp(
-          sql.activ,
-          sql.table,
-          sql.sqlst
+    this.Sqlst = this.Dfault.d.sqlst;
+    for (var sqc of this.Dfault.d.sqlst.sqlcr) {
+      if (sqc.activ) {
+        this.Sqlcr.push(new tp.Sqlcr_tp(
+          sqc.activ,
+          sqc.table,
+          sqc.sqlst
         ));
       }
     }
@@ -197,9 +206,9 @@ module.exports.Settings = class Settings {
     }
     if (p.Optn == this.Konst.REPORT_TASKS) {
       if (p.Prm1.length > 0) {
-        this.Objnm = p.Prm1.trim();
+        this.Reprt = p.Prm1.trim();
       } else {
-        console.log('Error: Not possible to determine IDOC-Type name.\r\n');
+        console.log('Error: Not possible to determine Report Type.\r\n');
         process.exit(1);
       }
     }

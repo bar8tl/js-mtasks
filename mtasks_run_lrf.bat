@@ -1,2 +1,2 @@
-node mtasks.js -lrf:bar8tl:tsk
+node mtasks.js -lrf:bar8tl:crq
 pause

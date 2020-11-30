@@ -7,19 +7,28 @@
     "OUTPUTS_DIR" : "c:\\c_portab\\01_rb\\ProgramData\\js-mtasks\\output\\"
   },
   "konst": {
-    "MTASK_MAPPING_SHEET" : 2,
-    "MTASK_TOP_LINE"      : 2,
-    "CREATE_DB"           : "cdb",
-    "LOAD_REFERENCES"     : "lrf",
-    "REPORT_TASKS"        : "rpt",
-    "MY_TASKS"            : "tsk",
-    "EDI_CUSTOMER_REQS"   : "crq",
-    "DAV57_BOARD"         : "dav"
+    "TASKS_SHEET"       : 2,
+    "TASKS_TOPLINE"     : 2,
+    "BASELINE_SHEET"    : 1,
+    "BASELINE_TOPLINE"  : 1,
+    "CREATE_DB"         : "cdb",
+    "LOAD_REFERENCES"   : "lrf",
+    "REPORT_TASKS"      : "rpt",
+    "MY_TASKS"          : "tsk",
+    "EDI_CUSTOMER_REQS" : "crq",
+    "EDI_CRQ_BASELINE"  : "cbl",
+    "DAV57_BOARD"       : "dav",
+    "REPORT_EDICRQ"     : "edi"
   },
-  "sqlst": [
-    {"activ": true, "table": "mtasks", "sqlst": "CREATE TABLE IF NOT EXISTS mtasks (usrid TEXT, tskid TEXT, crtdt TEXT, categ TEXT, rqstr TEXT, divsn TEXT, descr TEXT, eefrt TEXT, tgtdt TEXT, stats TEXT, resol TEXT, tsktp TEXT, depen TEXT, aefrt TEXT, enddt TEXT, PRIMARY KEY(usrid, tskid));"},
-    {"activ": true, "table": "edicrq", "sqlst": "CREATE TABLE IF NOT EXISTS edicrq (usrid TEXT, tskid TEXT, isstp TEXT, issky TEXT, issid TEXT, parnt TEXT, sumry TEXT, assig TEXT, rpter TEXT, prity TEXT, stats TEXT, resol TEXT, crtdt TEXT, upddt TEXT, duedt TEXT, PRIMARY KEY(usrid, tskid));"},
-    {"activ": true, "table": "dav57b", "sqlst": "CREATE TABLE IF NOT EXISTS dav57b (usrid TEXT, tskid TEXT, isstp TEXT, issky TEXT, issid TEXT, parnt TEXT, sumry TEXT, assig TEXT, rpter TEXT, prity TEXT, stats TEXT, resol TEXT, crtdt TEXT, upddt TEXT, duedt TEXT, eefrt TEXT, bspnt TEXT, tlght TEXT, prjky TEXT, cstat TEXT, lstup TEXT, seclv TEXT, comp1 TEXT, comp2 TEXT, descr TEXT, labl1 TEXT, labl2 TEXT, labl3 TEXT, epicl TEXT, rslvd TEXT, PRIMARY KEY(usrid, tskid));"}
-  ],
+  "sqlst": {
+    "sqlcr" : [
+      {"activ": true, "table": "mtasks", "sqlst": "CREATE TABLE IF NOT EXISTS mtasks (usrid TEXT, tskid TEXT, crtdt TEXT, categ TEXT, rqstr TEXT, divsn TEXT, descr TEXT, eefrt TEXT, tgtdt TEXT, stats TEXT, resol TEXT, tsktp TEXT, depen TEXT, aefrt TEXT, enddt TEXT, PRIMARY KEY(usrid, tskid));"},
+      {"activ": true, "table": "edicrq", "sqlst": "CREATE TABLE IF NOT EXISTS edicrq (usrid TEXT, tskid TEXT, isstp TEXT, issky TEXT, issid TEXT, parnt TEXT, sumry TEXT, assig TEXT, rpter TEXT, prity TEXT, stats TEXT, resol TEXT, crtdt TEXT, upddt TEXT, duedt TEXT, PRIMARY KEY(usrid, tskid));"},
+      {"activ": true, "table": "edicbl", "sqlst": "CREATE TABLE IF NOT EXISTS edicbl (tskid TEXT, CUS   TEXT, REL   TEXT, TSKTP, PRIMARY KEY(tskid));"},
+      {"activ": true, "table": "dav57b", "sqlst": "CREATE TABLE IF NOT EXISTS dav57b (usrid TEXT, tskid TEXT, isstp TEXT, issky TEXT, issid TEXT, parnt TEXT, sumry TEXT, assig TEXT, rpter TEXT, prity TEXT, stats TEXT, resol TEXT, crtdt TEXT, upddt TEXT, duedt TEXT, eefrt TEXT, bspnt TEXT, tlght TEXT, prjky TEXT, cstat TEXT, lstup TEXT, seclv TEXT, comp1 TEXT, comp2 TEXT, descr TEXT, labl1 TEXT, labl2 TEXT, labl3 TEXT, epicl TEXT, rslvd TEXT, PRIMARY KEY(usrid, tskid));"},
+      {"activ": true, "table": "rptedi", "sqlst": "CREATE TABLE IF NOT EXISTS rptedi (usrid TEXT, tskid TEXT, isstp TEXT, issky TEXT, issid TEXT, parnt TEXT, sumry TEXT, CUS   TEXT, REL   TEXT, TSKTP TEXT, assig TEXT, rpter TEXT, prity TEXT, stats TEXT, resol TEXT, crtdt TEXT, upddt TEXT, duedt TEXT, PRIMARY KEY(usrid, tskid));"}
+    ],
+    "ISRT_RPTEDI" : "INSERT INTO rptedi SELECT a.usrid, a.tskid, a.isstp, a.issky, a.issid, a.parnt, a.sumry, b.CUS, b.REL, b.TSKTP, a.assig, a.rpter, a.prity, a.stats, a.resol, a.crtdt, a.upddt, a.duedt from edicrq as a left join edicbl as b on a.tskid = b.tskid where b.REL = 'NA' order by a.crtdt desc, a.tskid desc;"
+  },
   "errs": {}
 }

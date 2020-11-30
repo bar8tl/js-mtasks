@@ -1,4 +1,4 @@
-`use strict`;
+'use strict';
 
 module.exports.Param_tp = class Param_tp {
   constructor(optn, prm1, prm2) {
@@ -45,7 +45,15 @@ module.exports.Lrf_tp = class Lrf_tp {
   }
 }
 
-module.exports.Sqlst_tp = class Sqlst_tp {
+module.exports.Rpt_tp = class Rpt_tp {
+  constructor(id, reprt, pr) {
+    this.Id    = id;
+    this.Reprt = reprt;
+    this.Pr    = pr;
+  }
+}
+
+module.exports.Sqlcr_tp = class Sqlcr_tp {
   constructor(activ, table, sqlst) {
     this.Activ = activ;
     this.Table = table;
@@ -53,47 +61,9 @@ module.exports.Sqlst_tp = class Sqlst_tp {
   }
 }
 
-module.exports.Mpcrt_tp = class Mpcrt_tp {
+module.exports.Dbcrt_tp = class Dbcrt_tp {
   constructor(table, sqlst) {
     this.Table = table;
     this.Sqlst = sqlst;
-  }
-}
-
-module.exports.hd_tp = class hd_tp {
-  constructor() {
-    this.seqno = '';
-    this.mapid = '';
-    this.mptit = '';
-    this.lstup = '';
-    this.authr = '';
-    this.bvers = '';
-    this.custm = '';
-    this.tform = '';
-    this.sform = '';
-    this.instr = '';
-    this.sampl = '';
-  }
-}
-module.exports.gp_tp = class gp_tp {
-  constructor() {
-    this.seqno = '';
-    this.mapid = '';
-    this.grpid = '';
-    this.gtext = '';
-    this.lpmax = '';
-    this.stats = '';
-  }
-}
-module.exports.sg_tp = class sg_tp {
-  constructor() {
-    this.seqno = '';
-    this.mapid = '';
-    this.grpid = '';
-    this.segid = '';
-    this.sgmtp = '';
-    this.lpmax = '';
-    this.stats = '';
-    this.usage = '';
   }
 }

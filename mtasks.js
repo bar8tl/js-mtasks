@@ -1,4 +1,4 @@
-`use strict`;
+'use strict';
 const constant = require('./constants');
 const crtdb    = require('./crtdb');
 const lrfdata  = require('./lrfdata');

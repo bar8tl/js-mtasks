@@ -1,4 +1,4 @@
-`use strict`;
+'use strict';
 const fs       = require('fs');
 const sprintf  = require('/nodejs/node_modules/sprintf-js').sprintf;
 const parse    = require('/nodejs/node_modules/csv-parse');
@@ -14,10 +14,14 @@ module.exports.Dlrf = class Dlrf {
       if (lrf.Ld && lrf.Id == s.Konst.MY_TASKS && lrf.User == s.Usrid) {
         this.loadMtasks(s, lrf).then((msg) => {
           console.log(sprintf('Table %-8s %s...', 'mtasks', msg));
-        });
+        });  
       } else if (lrf.Ld && lrf.Id == s.Konst.EDI_CUSTOMER_REQS) {
         this.loadEdicrq(s, lrf).then((msg) => {
           console.log(sprintf('Table %-8s %s...', 'edicrq', msg));
+        });
+      } else if (lrf.Ld && lrf.Id == s.Konst.EDI_CRQ_BASELINE) {
+        this.loadEdicbl(s, lrf).then((msg) => {
+          console.log(sprintf('Table %-8s %s...', 'edicbl', msg));
         });
       } else if (lrf.Ld && lrf.Id == s.Konst.DAV57_BOARD) {
         this.loadDav57b(s, lrf).then((msg) => {
@@ -30,7 +34,7 @@ module.exports.Dlrf = class Dlrf {
   loadMtasks(s, lrf) {
     return new Promise((resolve, reject) => {
       xlsxFile(s.Lrfdr + lrf.File,
-        { sheet: s.Konst.MTASK_MAPPING_SHEET }).then((rows) => {
+        { sheet: s.Konst.TASKS_SHEET }).then((rows) => {
         const db = new sqlite3.Database(s.Dbort);
         db.serialize(() => {
           db.run('DELETE FROM mtasks where usrid = ?;', lrf.User);
@@ -42,7 +46,7 @@ module.exports.Dlrf = class Dlrf {
               }
             }
           }
-          for (var row = s.Konst.MTASK_TOP_LINE; row < this.cell.length;
+          for (var row = s.Konst.TASKS_TOPLINE; row < this.cell.length;
             row++) {
             db.run('INSERT INTO mtasks VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);',
               lrf.User.toLowerCase(),
@@ -68,7 +72,7 @@ module.exports.Dlrf = class Dlrf {
         .on('end', () => {
           const db = new sqlite3.Database(s.Dbort);
           db.serialize(() => {
-            db.run('DELETE FROM edicrq where usrid = ?;', lrf.User);
+            db.run('DELETE FROM edicrq;');
             for (var row of csvdata) {
               if (row[0] != 'Issue Type' &&
                 row[1].substr(0, row[1].indexOf('-')) == 'EDICUSTOMERREQUEST') {
@@ -85,6 +89,35 @@ module.exports.Dlrf = class Dlrf {
         resolve('uploaded');
     });
   }
+
+  loadEdicbl(s, lrf) {
+    return new Promise((resolve, reject) => {
+      xlsxFile(s.Lrfdr + lrf.File,
+        { sheet: s.Konst.BASELINE_SHEET }).then((rows) => {
+        const db = new sqlite3.Database(s.Dbort);
+        db.serialize(() => {
+          db.run('DELETE FROM edicbl;');
+          this.cell = rows;
+          for (var i in this.cell) {
+            for (var j in this.cell[i]) {
+              if (this.cell[i][j] == null) {
+                this.cell[i][j] = '';
+              }
+            }
+          }
+          for (var row = s.Konst.BASELINE_TOPLINE; row < this.cell.length;
+            row++) {
+            db.run('INSERT INTO edicbl VALUES(?,?,?,?);',
+              this.cell[row][0], this.cell[row][1], this.cell[row][2],
+              this.cell[row][3]);
+          }
+          db.close();
+        });
+      });
+      resolve('uploaded');
+    });
+  }
+
 
   loadDav57b(s, lrf) {
     return new Promise((resolve, reject) => {

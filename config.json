@@ -10,12 +10,18 @@
   "cdb": [
     {"id": "tsk", "table": "mtasks", "cr": true},
     {"id": "crq", "table": "edicrq", "cr": true},
-    {"id": "dav", "table": "dav57b", "cr": true}
+    {"id": "cbl", "table": "edicbl", "cr": true},
+    {"id": "dav", "table": "dav57b", "cr": true},
+    {"id": "edi", "table": "rptedi", "cr": true}
   ],
   "lrf": [
     {"id": "tsk", "table": "mtasks", "user": "bar8tl", "file": "Ricardo_Meeting_OPL.xlsx", "ld": true},
     {"id": "tsk", "table": "mtasks", "user": "jaj8mx", "file": "JJJ_Meeting_OPL.xlsx",     "ld": true},
-    {"id": "crq", "table": "edicrq", "user": "bar8tl", "file": "edicrq.txt",               "ld": true},
-    {"id": "dav", "table": "dav57b", "user": "bar8tl", "file": "dav57b.txt",               "ld": true}
+    {"id": "crq", "table": "edicrq", "user": "all",    "file": "edicrq_all.txt",           "ld": true},
+    {"id": "cbl", "table": "edibsl", "user": "all",    "file": "edicrq_all_baseline.xlsx", "ld": true},
+    {"id": "dav", "table": "dav57b", "user": "bar8tl", "file": "dav57b_rb.txt",            "ld": true}
+  ],
+  "rpt": [
+    {"id": "edi", "reprt": "rptedi", "pr": true}
   ]
 }
